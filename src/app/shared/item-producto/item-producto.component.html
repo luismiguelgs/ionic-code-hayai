@@ -1,0 +1,41 @@
+<ion-card *ngIf="!oferta" class="itemProducto">
+  <ion-img [src]="item.imagenUrl" class="imagenItem"></ion-img>
+  <ion-card-header class="ion-no-padding">
+      <ion-card-title>S/{{ item.precio | number: '1.2-2' }}</ion-card-title>
+  </ion-card-header>
+  <ion-card-content class="ion-no-padding" *ngIf="showActions && shoppingCart">
+    <div class="item-contenido">
+      <ion-label >{{ item.nombre }}</ion-label>
+    </div>
+    <ion-button
+     color="primary"
+     expand="block" 
+     (click)="agregarAlCarro()" 
+     *ngIf="!shoppingCart.items || shoppingCart?.getQty(item) === 0; else updateQty">Comprar
+    </ion-button>
+    <ng-template #updateQty>
+      <app-item-cantidad [producto]="item" [shopping-cart]="shoppingCart"></app-item-cantidad>
+    </ng-template>
+  </ion-card-content>
+</ion-card>
+<!-- OFERTA ------------------------------------------------------------------------------------------------------------->
+<ion-card class="itemOferta" *ngIf="oferta">
+  <ion-img [src]="item.imagenUrl" class="imagenItem"></ion-img>
+  <ion-card-header class="ion-no-padding">
+      <ion-card-title>S/{{ item.oferta | number: '1.2-2' }} + {{ item.puntos }} puntos</ion-card-title>
+      <ion-card-subtitle class="precio">S/{{ item.precio | number: '1.2-2' }}</ion-card-subtitle>
+  </ion-card-header>
+  <ion-card-content class="ion-no-padding" *ngIf="showActions && shoppingCart">
+    <ion-label>{{ item.nombre }}</ion-label>
+    <ion-button
+     color="primary"
+     expand="block" 
+     [disabled]="usuario.puntos<item.puntos"
+     (click)="agregarAlCarro()" 
+     *ngIf="!shoppingCart.items || shoppingCart?.getQty(item) === 0; else updateQty">Comprar
+    </ion-button>
+    <ng-template #updateQty>
+      <app-item-cantidad [producto]="item" [shopping-cart]="shoppingCart" [oferta]="oferta" [usuario]="usuario"></app-item-cantidad>
+    </ng-template>
+  </ion-card-content>
+</ion-card>

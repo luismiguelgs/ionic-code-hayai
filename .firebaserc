@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "pedidos-hayai": {
+      "hosting": {
+        "app": [
+          "pedidos-hayai"
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,49 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Confirmación De Compra</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <div id="recaptcha-container" style="display: none;"></div>
+
+  <div *ngIf="!otpSent">
+    <ion-note style="font-weight: bold;font-size: medium;">
+      Ingresar número celular para verificación.
+    </ion-note>
+    <ion-item>
+      <ion-label position="floating">Número Celular</ion-label>
+      <ion-input type="tel" [(ngModel)]="phoneNumber" [disabled]="bloquear"></ion-input>
+    </ion-item>
+
+    <ion-progress-bar type="indeterminate" *ngIf="bloquear"></ion-progress-bar>
+    <ion-button style="float: right;margin-top: 30px;" (click)="sendOtp()" [disabled]="bloquear">
+      Ingresar
+    </ion-button>
+  </div>
+  <div *ngIf="otpSent">
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>{{ubicacion.direccion}}</ion-card-title>
+      </ion-card-header>
+      <ion-img [src]="ubicacion.staticMapImageUrl"></ion-img>
+      <ion-card-content>
+        <form [formGroup]="form">
+          <ion-item>
+            <ion-label position="floating">Nombre y Apellido</ion-label>
+            <ion-input type="text" required formControlName="nombre"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label>Medio de Pago</ion-label>
+              <ion-select placeholder="Seleccionar" required cancelText="Cancelar" okText="Aceptar" formControlName="pago">
+                <ion-select-option value="contadocontraentrega">Contado Contraentrega</ion-select-option>
+                <ion-select-option value="tarjetacontraentrega">Tarjeta Contraentrega</ion-select-option>
+              </ion-select>
+          </ion-item>
+        </form>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-button class="ion-padding" color="primary" expand="full" (click)="terminarVenta()" [disabled]="!form.valid">Confirmar Compra</ion-button>
+  </div>
+</ion-content>

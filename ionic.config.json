@@ -1,0 +1,7 @@
+{
+  "name": "hayai-app",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

@@ -1,0 +1,20 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Ubicación</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div #mapElement class="map"></div>
+</ion-content>
+<ion-footer class="ion-padding">
+  <ion-item>
+    <ion-label position="floating">Dirección</ion-label>
+    <ion-input [(ngModel)]="direccion"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="floating">Piso/Dpto</ion-label>
+    <ion-input [(ngModel)]="piso"></ion-input>
+  </ion-item>
+  <ion-button expand="block" color="primary" [disabled]="isLoading" (click)="createPlace()">Confirmar</ion-button>
+</ion-footer>

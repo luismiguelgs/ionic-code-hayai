@@ -1,0 +1,27 @@
+<ion-item *ngIf="!oferta">
+     
+  <ion-button color="medium" fill="clear" (click)="removeFromCart()">
+    <ion-icon name="remove-circle-outline" slot="icon-only"></ion-icon>
+  </ion-button>
+  <ion-label class="ion-text-center">{{ shoppingCart.getQty(producto) }}</ion-label>
+
+
+  <ion-button color="medium" fill="clear" (click)="addToCart()">
+    <ion-icon name="add-circle" slot="icon-only"></ion-icon>
+  </ion-button>
+ 
+</ion-item>
+<!-- OFERTA ---------------------------------------------------------------------------------------->
+<ion-item *ngIf="oferta">
+     
+  <ion-button color="medium" fill="clear" (click)="removeFromCart()">
+    <ion-icon name="remove-circle-outline" slot="icon-only"></ion-icon>
+  </ion-button>
+  <ion-label class="ion-text-center">{{ shoppingCart.getQty(producto) }}</ion-label>
+
+  
+  <ion-button color="medium" fill="clear" (click)="addToCart()" [disabled]="usuario.puntos<producto.puntos">
+    <ion-icon name="add-circle" slot="icon-only"></ion-icon>
+  </ion-button>
+ 
+</ion-item>

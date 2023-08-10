@@ -1,0 +1,79 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button [defaultHref]="'/tabs/inicio'"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Carrito de Compras</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-list>
+    <ion-item *ngFor="let p of cart?.items" class="ion-text-wrap">
+      <ion-thumbnail slot="start">
+        <ion-img [src]="p.imagenUrl"></ion-img>
+      </ion-thumbnail>
+          <ion-grid>
+        
+        <ion-row class="ion-align-items-center">
+          <ion-col size="4">
+            S/ {{p.precio | number: '1.2-2'}}
+          </ion-col>
+          <ion-col size="3" class="ion-text-center" *ngIf="p.oferta<=0">
+            <ion-button color="medium" fill="clear" (click)="decreseCartItem(p)">
+              <ion-icon name="remove-circle" slot="icon-only"></ion-icon>
+            </ion-button>
+          </ion-col>
+          <ion-col *ngIf="p.oferta>0">
+            <ion-label color="danger">OFERTA</ion-label>
+          </ion-col>
+          <ion-col size="2" class="ion-text-center">
+            {{ p.cantidad }}
+          </ion-col>
+          <ion-col size="3" class="ion-text-center" *ngIf="p.oferta<=0">
+            <ion-button color="medium" fill="clear" (click)="increaseCartItem(p)">
+              <ion-icon name="add-circle" slot="icon-only"></ion-icon>
+            </ion-button>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="8">
+            <b>{{ p.nombre }}</b>
+          </ion-col>
+          <ion-col size="4" class="ion-text-end">
+            S/ {{ p.cantidad * p.precio | number: '1.2-2'}}
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+    
+  </ion-list>
+</ion-content>
+<ion-footer>
+  <div class="ion-padding">
+    <ion-item>
+      <ion-grid>
+        <ion-row>
+          <ion-col size="9">
+            Total:
+          </ion-col>
+          <ion-col size="3" class="ion-text-end">
+            S/ {{ total | number: '1.2-2'}}
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="9">
+            Puntos:
+          </ion-col>
+          <ion-col size="3" class="ion-text-end">
+           {{ puntos | number: '1.0-0'}}
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+    <app-pedido-minimo [progreso]="progreso"></app-pedido-minimo>
+    <ion-button expand="full" (click)="checkout()" [disabled]="progreso<1">
+      Checkout
+    </ion-button>
+  </div>
+</ion-footer>

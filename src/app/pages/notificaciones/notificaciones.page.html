@@ -1,0 +1,39 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>
+      Notificaciones
+    </ion-title>
+    <ion-buttons slot="primary">
+      <ion-button (click)="abrirCarrito()">
+        <ion-icon name="cart" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <div *ngIf="!debug">
+    <ion-list>
+      <ion-item *ngFor="let n of notificaciones">
+        <ion-label>
+          <h4>{{ n.creado | date: 'dd/MM/yyyy hh:mm a'}}</h4>
+          <p>{{utilService.estadoPedido(n.estado).mensaje}}</p>
+          <p><a (click)="verCarrito(n.idPedido)">{{n.idPedido}}</a></p>
+        </ion-label>
+        <div [ngSwitch]="n.estado">
+          <ion-icon *ngSwitchCase="'P'" slot="end" name="today-outline" size="large" color="danger"></ion-icon>
+          <ion-icon *ngSwitchCase="'E'" slot="end" name="rocket-outline" size="large" color="primary"></ion-icon>
+          <ion-icon *ngSwitchCase="'C'" slot="end" name="checkbox-outline" size="large" color="success"></ion-icon>
+        </div>
+      </ion-item>
+    </ion-list>
+  </div>
+  <div *ngIf="debug">
+    <ion-img src="assets/construccion.png"></ion-img>
+    <ion-button (click)="deleteMap()">Borrar Mapa</ion-button>
+    <ion-button (click)="deleteUsuario()">Borrar Usuario</ion-button>
+    <ion-button (click)="deleteCart()">Borrar Carro</ion-button>
+  </div>
+  
+</ion-content>
+
